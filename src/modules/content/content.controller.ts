@@ -1,0 +1,83 @@
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { ContentService } from './content.service';
+
+@ApiTags('content')
+@Controller('content')
+export class ContentController {
+  constructor(private readonly contentService: ContentService) {}
+
+  // ==================== LETTERS ====================
+
+  @Get('letters')
+  @ApiOperation({ summary: 'Get all letters A-Z' })
+  @ApiResponse({ status: 200, description: 'List of all letters' })
+  async getAllLetters() {
+    return this.contentService.getAllLetters();
+  }
+
+  @Get('letters/:id')
+  @ApiOperation({ summary: 'Get a specific letter by ID' })
+  @ApiResponse({ status: 200, description: 'Letter details' })
+  async getLetterById(@Param('id', ParseIntPipe) id: number) {
+    return this.contentService.getLetterById(id);
+  }
+
+  @Get('letters/char/:letter')
+  @ApiOperation({ summary: 'Get a letter by character' })
+  @ApiResponse({ status: 200, description: 'Letter details' })
+  async getLetterByChar(@Param('letter') letter: string) {
+    return this.contentService.getLetterByChar(letter);
+  }
+
+  // ==================== NUMBERS ====================
+
+  @Get('numbers')
+  @ApiOperation({ summary: 'Get all numbers 0-20' })
+  @ApiResponse({ status: 200, description: 'List of all numbers' })
+  async getAllNumbers() {
+    return this.contentService.getAllNumbers();
+  }
+
+  @Get('numbers/:id')
+  @ApiOperation({ summary: 'Get a specific number by ID' })
+  @ApiResponse({ status: 200, description: 'Number details' })
+  async getNumberById(@Param('id', ParseIntPipe) id: number) {
+    return this.contentService.getNumberById(id);
+  }
+
+  @Get('numbers/value/:value')
+  @ApiOperation({ summary: 'Get a number by its value' })
+  @ApiResponse({ status: 200, description: 'Number details' })
+  async getNumberByValue(@Param('value', ParseIntPipe) value: number) {
+    return this.contentService.getNumberByValue(value);
+  }
+
+  // ==================== ANIMALS ====================
+
+  @Get('animals')
+  @ApiOperation({ summary: 'Get all animals' })
+  @ApiQuery({ name: 'difficulty', required: false, enum: ['easy', 'medium', 'hard'] })
+  @ApiResponse({ status: 200, description: 'List of all animals' })
+  async getAllAnimals(@Query('difficulty') difficulty?: string) {
+    if (difficulty) {
+      return this.contentService.getAnimalsByDifficulty(difficulty);
+    }
+    return this.contentService.getAllAnimals();
+  }
+
+  @Get('animals/quiz')
+  @ApiOperation({ summary: 'Get random animals for quiz' })
+  @ApiQuery({ name: 'count', required: false, type: Number })
+  @ApiResponse({ status: 200, description: 'Random animals for quiz' })
+  async getAnimalQuiz(@Query('count') count?: number) {
+    return this.contentService.getRandomAnimalQuiz(count || 5);
+  }
+
+  @Get('animals/:id')
+  @ApiOperation({ summary: 'Get a specific animal by ID' })
+  @ApiResponse({ status: 200, description: 'Animal details' })
+  async getAnimalById(@Param('id', ParseIntPipe) id: number) {
+    return this.contentService.getAnimalById(id);
+  }
+}
