@@ -10,6 +10,7 @@ import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ProfileService } from './profile.service';
 import { ProfileSummaryDto, CalendarQueryDto, ActivityHistoryDto } from './dto/profile.dto';
+import { MonthlyStreakDto, StreakCalendarDto } from './dto/streak.dto';
 
 @ApiTags('Profile')
 @Controller('profile')
@@ -56,5 +57,25 @@ export class ProfileController {
       totalStars: profile.totalStars,
       starsToNextLevel: profile.starsToNextLevel,
     };
+  }
+
+  @Get(':childId/streak/monthly')
+  @ApiOperation({ summary: 'Get monthly streak data with achievements'  })
+  @ApiQuery({ name: 'month', required: false, example: '2024-12', description: 'Month in YYYY-MM format (default: current month)' })
+  async getMonthlyStreak(
+    @Param('childId', ParseUUIDPipe) childId: string,
+    @Query('month') month?: string,
+  ): Promise<MonthlyStreakDto> {
+    return this.profileService.getMonthlyStreak(childId, month);
+  }
+
+  @Get(':childId/streak/calendar')
+  @ApiOperation({ summary: 'Get detailed streak calendar for month' })
+  @ApiQuery({ name: 'month', required: false, example: '2024-12', description: 'Month in YYYY-MM format (default: current month)' })
+  async getStreakCalendar(
+    @Param('childId', ParseUUIDPipe) childId: string,
+    @Query('month') month?: string,
+  ): Promise<StreakCalendarDto> {
+    return this.profileService.getStreakCalendar(childId, month);
   }
 }

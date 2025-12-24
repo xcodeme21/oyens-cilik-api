@@ -5,6 +5,7 @@ import { ActivityHistory } from './entities/activity-history.entity';
 import { Progress, ContentType } from './entities/progress.entity';
 import { Child } from '../users/entities/child.entity';
 import { ProfileSummaryDto, ActivityHistoryDto } from './dto/profile.dto';
+import { MonthlyStreakDto, StreakCalendarDto } from './dto/streak.dto';
 
 /**
  * Level configuration
@@ -13,7 +14,7 @@ import { ProfileSummaryDto, ActivityHistoryDto } from './dto/profile.dto';
 const LEVEL_CONFIG = [
   { level: 1, minStars: 0, maxStars: 49, title: 'Pemula' },
   { level: 2, minStars: 50, maxStars: 149, title: 'Pelajar' },
-  { level: 3, minStars: 150, maxStars: 299, title: 'Mahir' },
+  { level: 3,  minStars: 150, maxStars: 299, title: 'Mahir' },
   { level: 4, minStars: 300, maxStars: 499, title: 'Ahli' },
   { level: 5, minStars: 500, maxStars: 999999, title: 'Master' },
 ];
@@ -22,6 +23,9 @@ const LEVEL_CONFIG = [
 const TOTAL_LETTERS = 26;
 const TOTAL_NUMBERS = 21; // 0-20
 const TOTAL_ANIMALS = 15;
+
+// Monthly streak target
+const MONTHLY_TARGET_DAYS = 20;
 
 @Injectable()
 export class ProfileService {
@@ -213,6 +217,157 @@ export class ProfileService {
       numbersLearned: a.numbersLearned,
       animalsLearned: a.animalsLearned,
     }));
+  }
+
+  /**
+   * Get monthly streak data
+   */
+  async getMonthlyStreak(childId: string, month?: string): Promise<MonthlyStreakDto> {
+    const child = await this.childRepository.findOne({ where: { id: childId } });
+    if (!child) {
+      throw new NotFoundException('Child not found');
+    }
+
+    // Parse month or use current
+    const targetDate = month ? new Date(month + '-01') : new Date();
+    const year = targetDate.getFullYear();
+    const monthNum = targetDate.getMonth();
+    const monthStr = `${year}-${String(monthNum + 1).padStart(2, '0')}`;
+
+    // Get first and last day of month
+    const firstDay = new Date(year, monthNum, 1);
+    const lastDay = new Date(year, monthNum + 1, 0);
+
+    // Get all activities for this month
+    const activities = await this.activityHistoryRepository.find({
+      where: {
+        childId,
+        date: Between(firstDay, lastDay),
+      },
+      order: { date: 'ASC' },
+    });
+
+    // Build completed dates array
+    const completedDates = activities.map(a => a.date.toISOString().split('T')[0]);
+    const totalActiveDays = completedDates.length;
+
+    // Calculate current streak (consecutive days including today/latest)
+    let currentStreak = 0;
+    let longestStreakThisMonth = 0;
+    let tempStreak = 0;
+    
+    const sortedDates = [...completedDates].sort();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    for (let i = 0; i < sortedDates.length; i++) {
+      const currentDate = new Date(sortedDates[i]);
+      
+      if (i === 0) {
+        tempStreak = 1;
+      } else {
+        const prevDate = new Date(sortedDates[i - 1]);
+        const diffDays = Math.floor((currentDate.getTime() - prevDate.getTime()) / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 1) {
+          tempStreak++;
+        } else {
+          longestStreakThisMonth = Math.max(longestStreakThisMonth, tempStreak);
+          tempStreak = 1;
+        }
+      }
+      
+      // Check if this streak extends to today/yesterday
+      const diffFromToday = Math.floor((today.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+      if (diffFromToday <= 1 && i === sortedDates.length - 1) {
+        currentStreak = tempStreak;
+      }
+    }
+    
+    longestStreakThisMonth = Math.max(longestStreakThisMonth, tempStreak);
+
+    // Calculate achievement
+    const achievementPercentage = Math.min(100, Math.round((totalActiveDays / MONTHLY_TARGET_DAYS) * 100));
+    const isTargetMet = totalActiveDays >= MONTHLY_TARGET_DAYS;
+
+    // Determine status
+    let status: 'active' | 'broken' | 'new' = 'new';
+    if (currentStreak > 0) {
+      status = 'active';
+    } else if (totalActiveDays > 0) {
+      status = 'broken';
+    }
+
+    // Determine reward
+    let reward: string | undefined;
+    if (isTargetMet) {
+      reward = '🏆 Monthly Champion';
+    } else if (achievementPercentage >= 75) {
+      reward = '⭐ Great Progress';
+    } else if (achievementPercentage >= 50) {
+      reward = '💪 Keep Going';
+    }
+
+    return {
+      childId,
+      month: monthStr,
+      currentStreak,
+      longestStreakThisMonth,
+      totalActiveDays,
+      targetDays: MONTHLY_TARGET_DAYS,
+      completedDates,
+      status,
+      achievementPercentage,
+      isTargetMet,
+      reward,
+    };
+  }
+
+  /**
+   * Get streak calendar with detailed day data
+   */
+  async getStreakCalendar(childId: string, month?: string): Promise<StreakCalendarDto> {
+    const targetDate = month ? new Date(month + '-01') : new Date();
+    const year = targetDate.getFullYear();
+    const monthNum = targetDate.getMonth();
+    const monthStr = `${year}-${String(monthNum + 1).padStart(2, '0')}`;
+
+    const firstDay = new Date(year, monthNum, 1);
+    const lastDay = new Date(year, monthNum + 1, 0);
+
+    const activities = await this.activityHistoryRepository.find({
+      where: {
+        childId,
+        date: Between(firstDay, lastDay),
+      },
+    });
+
+    // Build calendar object
+    const calendar: StreakCalendarDto['calendar'] = {};
+    let totalLessons = 0;
+    let totalStars = 0;
+
+    activities.forEach(activity => {
+      const dateStr = activity.date.toISOString().split('T')[0];
+      calendar[dateStr] = {
+        isActive: true,
+        lessonCount: activity.lessonsCompleted,
+        stars: activity.starsEarned,
+      };
+      totalLessons += activity.lessonsCompleted;
+      totalStars += activity.starsEarned;
+    });
+
+    return {
+      month: monthStr,
+      calendar,
+      stats: {
+        totalDays: lastDay.getDate(),
+        activeDays: activities.length,
+        totalLessons,
+        totalStars,
+      },
+    };
   }
 
   /**
