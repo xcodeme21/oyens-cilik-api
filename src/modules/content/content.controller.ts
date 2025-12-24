@@ -36,6 +36,13 @@ export class ContentController {
     return this.contentService.getLetterById(id);
   }
 
+  @Get('letters/order/:order')
+  @ApiOperation({ summary: 'Get a letter by order (1-26)' })
+  @ApiResponse({ status: 200, description: 'Letter details' })
+  async getLetterByOrder(@Param('order', ParseIntPipe) order: number) {
+    return this.contentService.getLetterByOrder(order);
+  }
+
   @Get('letters/char/:letter')
   @ApiOperation({ summary: 'Get a letter by character' })
   @ApiResponse({ status: 200, description: 'Letter details' })
@@ -57,6 +64,13 @@ export class ContentController {
   @ApiResponse({ status: 200, description: 'Number details' })
   async getNumberById(@Param('id', ParseIntPipe) id: number) {
     return this.contentService.getNumberById(id);
+  }
+
+  @Get('numbers/order/:order')
+  @ApiOperation({ summary: 'Get a number by order (1-21)' })
+  @ApiResponse({ status: 200, description: 'Number details' })
+  async getNumberByOrder(@Param('order', ParseIntPipe) order: number) {
+    return this.contentService.getNumberByOrder(order);
   }
 
   @Get('numbers/value/:value')
@@ -92,6 +106,13 @@ export class ContentController {
   @ApiResponse({ status: 200, description: 'Animal details' })
   async getAnimalById(@Param('id', ParseIntPipe) id: number) {
     return this.contentService.getAnimalById(id);
+  }
+
+  @Get('animals/order/:order')
+  @ApiOperation({ summary: 'Get an animal by order (1-15)' })
+  @ApiResponse({ status: 200, description: 'Animal details' })
+  async getAnimalByOrder(@Param('order', ParseIntPipe) order: number) {
+    return this.contentService.getAnimalByOrder(order);
   }
 
   @Get('animals/image/:filename')

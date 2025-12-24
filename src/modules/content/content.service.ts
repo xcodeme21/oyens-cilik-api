@@ -33,6 +33,10 @@ export class ContentService implements OnModuleInit {
     return this.letterRepository.findOne({ where: { id } });
   }
 
+  async getLetterByOrder(order: number): Promise<Letter | null> {
+    return this.letterRepository.findOne({ where: { order } });
+  }
+
   async getLetterByChar(letter: string): Promise<Letter | null> {
     return this.letterRepository.findOne({
       where: { letter: letter.toUpperCase() },
@@ -49,6 +53,10 @@ export class ContentService implements OnModuleInit {
     return this.numberRepository.findOne({ where: { id } });
   }
 
+  async getNumberByOrder(order: number): Promise<NumberEntity | null> {
+    return this.numberRepository.findOne({ where: { order } });
+  }
+
   async getNumberByValue(value: number): Promise<NumberEntity | null> {
     return this.numberRepository.findOne({ where: { number: value } });
   }
@@ -61,6 +69,10 @@ export class ContentService implements OnModuleInit {
 
   async getAnimalById(id: number): Promise<Animal | null> {
     return this.animalRepository.findOne({ where: { id } });
+  }
+
+  async getAnimalByOrder(order: number): Promise<Animal | null> {
+    return this.animalRepository.findOne({ where: { order } });
   }
 
   async getAnimalsByDifficulty(difficulty: string): Promise<Animal[]> {
