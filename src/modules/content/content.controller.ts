@@ -1,4 +1,5 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { ContentService } from './content.service';
 
@@ -91,5 +92,28 @@ export class ContentController {
   @ApiResponse({ status: 200, description: 'Animal details' })
   async getAnimalById(@Param('id', ParseIntPipe) id: number) {
     return this.contentService.getAnimalById(id);
+  }
+
+  @Get('animals/image/:filename')
+  @ApiOperation({ summary: 'Get animal image file' })
+  @ApiResponse({ status: 200, description: 'Animal image file' })
+  async getAnimalImage(@Param('filename') filename: string, @Res() res: Response) {
+    const fs = require('fs');
+    const path = require('path');
+    
+    // Security: only allow safe filenames
+    const safeFilename = path.basename(filename);
+    const imagePath = path.join(process.cwd(), 'public', 'uploads', 'animals', safeFilename);
+    
+    if (!fs.existsSync(imagePath)) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Image not found',
+        error: 'Not Found',
+        statusCode: 404 
+      });
+    }
+    
+    res.sendFile(imagePath);
   }
 }
