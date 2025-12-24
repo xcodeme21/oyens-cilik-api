@@ -16,6 +16,12 @@ export class ContentController {
     return this.contentService.getAllLetters();
   }
 
+  @Get('reseed-letters')
+  @ApiOperation({ summary: 'Reseed letters (DEV ONLY)' })
+  async reseedLetters() {
+    return this.contentService.reseedLetters();
+  }
+
   @Get('letters/:id')
   @ApiOperation({ summary: 'Get a specific letter by ID' })
   @ApiResponse({ status: 200, description: 'Letter details' })

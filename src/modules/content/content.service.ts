@@ -85,6 +85,16 @@ export class ContentService implements OnModuleInit {
     const count = await this.letterRepository.count();
     if (count > 0) return;
 
+    await this.performSeedLetters();
+  }
+
+  async reseedLetters() {
+    await this.letterRepository.clear();
+    await this.performSeedLetters();
+    return { message: 'Letters reseeded successfully' };
+  }
+
+  private async performSeedLetters() {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     const exampleWords: Record<string, string> = {
       A: 'Apel', B: 'Bola', C: 'Cacing', D: 'Domba', E: 'Elang',
@@ -97,7 +107,7 @@ export class ContentService implements OnModuleInit {
 
     const letterEntities = letters.map((l, i) => ({
       letter: l,
-      letterLower: l.toLowerCase(),
+      lowercase: l.toLowerCase(),
       exampleWord: exampleWords[l],
       order: i + 1,
     }));
