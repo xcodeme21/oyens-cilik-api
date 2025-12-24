@@ -66,28 +66,28 @@ export class SeedContent1703253700000 implements MigrationInterface {
 
     // Seed Animals
     const animals = [
-      { name: 'Kucing', nameEn: 'Cat', description: 'Kucing adalah hewan peliharaan yang lucu dan menggemaskan.', funFact: 'Kucing bisa tidur sampai 16 jam sehari!', difficulty: 'easy' },
-      { name: 'Anjing', nameEn: 'Dog', description: 'Anjing adalah sahabat terbaik manusia yang setia.', funFact: 'Anjing bisa mendengar suara 4 kali lebih jauh dari manusia!', difficulty: 'easy' },
-      { name: 'Gajah', nameEn: 'Elephant', description: 'Gajah adalah hewan darat terbesar di dunia.', funFact: 'Gajah bisa mengingat teman-temannya selama bertahun-tahun!', difficulty: 'easy' },
-      { name: 'Singa', nameEn: 'Lion', description: 'Singa sering disebut sebagai raja hutan.', funFact: 'Singa jantan bisa tidur sampai 20 jam sehari!', difficulty: 'easy' },
-      { name: 'Harimau', nameEn: 'Tiger', description: 'Harimau adalah kucing terbesar di dunia.', funFact: 'Setiap harimau memiliki pola belang yang unik!', difficulty: 'medium' },
-      { name: 'Jerapah', nameEn: 'Giraffe', description: 'Jerapah adalah hewan paling tinggi di dunia.', funFact: 'Lidah jerapah bisa sepanjang 50 cm!', difficulty: 'medium' },
-      { name: 'Kuda Nil', nameEn: 'Hippopotamus', description: 'Kuda nil menghabiskan sebagian besar waktunya di air.', funFact: 'Kuda nil bisa menahan napas sampai 5 menit!', difficulty: 'medium' },
-      { name: 'Zebra', nameEn: 'Zebra', description: 'Zebra memiliki belang hitam putih yang indah.', funFact: 'Tidak ada dua zebra yang memiliki pola belang yang sama!', difficulty: 'medium' },
-      { name: 'Kelinci', nameEn: 'Rabbit', description: 'Kelinci adalah hewan berbulu lembut dengan telinga panjang.', funFact: 'Kelinci bisa melompat setinggi 1 meter!', difficulty: 'easy' },
-      { name: 'Lumba-lumba', nameEn: 'Dolphin', description: 'Lumba-lumba adalah mamalia laut yang sangat cerdas.', funFact: 'Lumba-lumba tidur dengan satu mata terbuka!', difficulty: 'medium' },
-      { name: 'Penguin', nameEn: 'Penguin', description: 'Penguin adalah burung yang tidak bisa terbang tapi pandai berenang.', funFact: 'Penguin bisa minum air laut!', difficulty: 'medium' },
-      { name: 'Burung Hantu', nameEn: 'Owl', description: 'Burung hantu aktif di malam hari dan memiliki mata besar.', funFact: 'Burung hantu bisa memutar kepalanya hampir 270 derajat!', difficulty: 'hard' },
-      { name: 'Buaya', nameEn: 'Crocodile', description: 'Buaya adalah reptil besar yang hidup di sungai.', funFact: 'Buaya sudah ada sejak zaman dinosaurus!', difficulty: 'hard' },
-      { name: 'Kura-kura', nameEn: 'Turtle', description: 'Kura-kura membawa rumahnya di punggungnya.', funFact: 'Beberapa kura-kura bisa hidup lebih dari 100 tahun!', difficulty: 'easy' },
-      { name: 'Monyet', nameEn: 'Monkey', description: 'Monyet adalah hewan yang sangat lincah dan cerdas.', funFact: 'Monyet bisa mengenali wajahnya di cermin!', difficulty: 'easy' },
+      { name: 'Kucing', nameEn: 'Cat', description: 'Kucing adalah hewan peliharaan yang lucu dan menggemaskan.', funFact: 'Kucing bisa tidur sampai 16 jam sehari!', imageUrl: '/uploads/animals/cat.png', difficulty: 'easy' },
+      { name: 'Anjing', nameEn: 'Dog', description: 'Anjing adalah sahabat terbaik manusia yang setia.', funFact: 'Anjing bisa mendengar suara 4 kali lebih jauh dari manusia!', imageUrl: '/uploads/animals/dog.png', difficulty: 'easy' },
+      { name: 'Gajah', nameEn: 'Elephant', description: 'Gajah adalah hewan darat terbesar di dunia.', funFact: 'Gajah bisa mengingat teman-temannya selama bertahun-tahun!', imageUrl: '/uploads/animals/elephant.png', difficulty: 'easy' },
+      { name: 'Singa', nameEn: 'Lion', description: 'Singa sering disebut sebagai raja hutan.', funFact: 'Singa jantan bisa tidur sampai 20 jam sehari!', imageUrl: '/uploads/animals/lion.png', difficulty: 'easy' },
+      { name: 'Harimau', nameEn: 'Tiger', description: 'Harimau adalah kucing terbesar di dunia.', funFact: 'Setiap harimau memiliki pola belang yang unik!', imageUrl: '/uploads/animals/tiger.png', difficulty: 'medium' },
+      { name: 'Jerapah', nameEn: 'Giraffe', description: 'Jerapah adalah hewan paling tinggi di dunia.', funFact: 'Lidah jerapah bisa sepanjang 50 cm!', imageUrl: '/uploads/animals/giraffe.png', difficulty: 'medium' },
+      { name: 'Kuda Nil', nameEn: 'Hippopotamus', description: 'Kuda nil menghabiskan sebagian besar waktunya di air.', funFact: 'Kuda nil bisa menahan napas sampai 5 menit!', imageUrl: '/uploads/animals/hippo.png', difficulty: 'medium' },
+      { name: 'Zebra', nameEn: 'Zebra', description: 'Zebra memiliki belang hitam putih yang indah.', funFact: 'Tidak ada dua zebra yang memiliki pola belang yang sama!', imageUrl: '/uploads/animals/zebra.png', difficulty: 'medium' },
+      { name: 'Kelinci', nameEn: 'Rabbit', description: 'Kelinci adalah hewan berbulu lembut dengan telinga panjang.', funFact: 'Kelinci bisa melompat setinggi 1 meter!', imageUrl: '/uploads/animals/rabbit.png', difficulty: 'easy' },
+      { name: 'Lumba-lumba', nameEn: 'Dolphin', description: 'Lumba-lumba adalah mamalia laut yang sangat cerdas.', funFact: 'Lumba-lumba tidur dengan satu mata terbuka!', imageUrl: '/uploads/animals/dolphin.png', difficulty: 'medium' },
+      { name: 'Penguin', nameEn: 'Penguin', description: 'Penguin adalah burung yang tidak bisa terbang tapi pandai berenang.', funFact: 'Penguin bisa minum air laut!', imageUrl: '/uploads/animals/penguin.png', difficulty: 'medium' },
+      { name: 'Burung Hantu', nameEn: 'Owl', description: 'Burung hantu aktif di malam hari dan memiliki mata besar.', funFact: 'Burung hantu bisa memutar kepalanya hampir 270 derajat!', imageUrl: '/uploads/animals/owl.png', difficulty: 'hard' },
+      { name: 'Buaya', nameEn: 'Crocodile', description: 'Buaya adalah reptil besar yang hidup di sungai.', funFact: 'Buaya sudah ada sejak zaman dinosaurus!', imageUrl: '/uploads/animals/crocodile.png', difficulty: 'hard' },
+      { name: 'Kura-kura', nameEn: 'Turtle', description: 'Kura-kura membawa rumahnya di punggungnya.', funFact: 'Beberapa kura-kura bisa hidup lebih dari 100 tahun!', imageUrl: '/uploads/animals/turtle.png', difficulty: 'easy' },
+      { name: 'Monyet', nameEn: 'Monkey', description: 'Monyet adalah hewan yang sangat lincah dan cerdas.', funFact: 'Monyet bisa mengenali wajahnya di cermin!', imageUrl: '/uploads/animals/monkey.png', difficulty: 'easy' },
     ];
 
     for (let i = 0; i < animals.length; i++) {
       const a = animals[i];
       await queryRunner.query(`
-        INSERT INTO "animals" ("name", "nameEn", "description", "funFact", "difficulty", "order")
-        VALUES ('${a.name}', '${a.nameEn}', '${a.description}', '${a.funFact}', '${a.difficulty}', ${i + 1})
+        INSERT INTO "animals" ("name", "nameEn", "description", "funFact", "imageUrl", "difficulty", "order")
+        VALUES ('${a.name}', '${a.nameEn}', '${a.description}', '${a.funFact}', '${a.imageUrl}', '${a.difficulty}', ${i + 1})
       `);
     }
   }

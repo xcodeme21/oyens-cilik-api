@@ -22,6 +22,12 @@ export class ContentController {
     return this.contentService.reseedLetters();
   }
 
+  @Get('reseed-animals')
+  @ApiOperation({ summary: 'Reseed animals (DEV ONLY)' })
+  async reseedAnimals() {
+    return this.contentService.reseedAnimals();
+  }
+
   @Get('letters/:id')
   @ApiOperation({ summary: 'Get a specific letter by ID' })
   @ApiResponse({ status: 200, description: 'Letter details' })
