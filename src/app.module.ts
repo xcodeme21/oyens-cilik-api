@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { ContentModule } from './modules/content/content.module';
 import { ProgressModule } from './modules/progress/progress.module';
+import { ProfileModule } from './modules/profile/profile.module';
 import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
@@ -40,6 +41,7 @@ import { AdminModule } from './modules/admin/admin.module';
     UsersModule,
     ContentModule,
     ProgressModule,
+    ProfileModule,
     AdminModule,
   ],
 })

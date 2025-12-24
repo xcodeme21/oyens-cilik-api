@@ -64,6 +64,24 @@ export class AuthController {
     return { message: 'Berhasil logout' };
   }
 
+  @Get('me')
+  @ApiOperation({ summary: 'Get current authenticated user' })
+  @ApiResponse({ status: 200, description: 'Current user data' })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async getCurrentUser(@Request() req: any) {
+    const user = await this.authService.validateUser(req.user.id);
+    if (!user) {
+      return { message: 'User not found' };
+    }
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      avatarUrl: user.avatarUrl,
+    };
+  }
+
   // Google OAuth endpoints (for web)
   @Get('google')
   @ApiOperation({ summary: 'Initiate Google OAuth login' })
