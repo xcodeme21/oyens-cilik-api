@@ -75,12 +75,7 @@ export class ContentService implements OnModuleInit {
     return this.animalRepository.findOne({ where: { order } });
   }
 
-  async getAnimalsByDifficulty(difficulty: string): Promise<Animal[]> {
-    return this.animalRepository.find({
-      where: { difficulty },
-      order: { order: 'ASC' },
-    });
-  }
+
 
   async getRandomAnimalQuiz(count: number = 5): Promise<Animal[]> {
     const animals = await this.animalRepository
@@ -167,7 +162,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Kucing bisa tidur sampai 16 jam sehari!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/cat.png',
         audioUrl: undefined,
-        difficulty: 'easy',
         order: 1,
       },
       {
@@ -177,7 +171,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Anjing bisa mendengar suara 4 kali lebih jauh dari manusia!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/dog.png',
         audioUrl: undefined,
-        difficulty: 'easy',
         order: 2,
       },
       {
@@ -187,7 +180,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Gajah bisa mengingat teman-temannya selama bertahun-tahun!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/elephant.png',
         audioUrl: undefined,
-        difficulty: 'easy',
         order: 3,
       },
       {
@@ -197,7 +189,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Singa jantan bisa tidur sampai 20 jam sehari!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/lion.png',
         audioUrl: undefined,
-        difficulty: 'easy',
         order: 4,
       },
       {
@@ -207,7 +198,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Setiap harimau memiliki pola belang yang unik seperti sidik jari!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/tiger.png',
         audioUrl: undefined,
-        difficulty: 'medium',
         order: 5,
       },
       {
@@ -217,7 +207,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Lidah jerapah bisa sepanjang 50 cm!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/giraffe.png',
         audioUrl: undefined,
-        difficulty: 'medium',
         order: 6,
       },
       {
@@ -227,7 +216,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Kuda nil bisa menahan napas sampai 5 menit!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/hippo.png',
         audioUrl: undefined,
-        difficulty: 'medium',
         order: 7,
       },
       {
@@ -237,7 +225,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Tidak ada dua zebra yang memiliki pola belang yang sama!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/zebra.png',
         audioUrl: undefined,
-        difficulty: 'easy',
         order: 8,
       },
       {
@@ -247,7 +234,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Kelinci bisa melompat setinggi 1 meter!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/rabbit.png',
         audioUrl: undefined,
-        difficulty: 'easy',
         order: 9,
       },
       {
@@ -257,7 +243,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Lumba-lumba tidur dengan satu mata terbuka!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/dolphin.png',
         audioUrl: undefined,
-        difficulty: 'medium',
         order: 10,
       },
       {
@@ -267,7 +252,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Penguin bisa minum air laut!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/penguin.png',
         audioUrl: undefined,
-        difficulty: 'medium',
         order: 11,
       },
       {
@@ -277,7 +261,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Burung hantu bisa memutar kepalanya hampir 360 derajat!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/owl.png',
         audioUrl: undefined,
-        difficulty: 'hard',
         order: 12,
       },
       {
@@ -287,7 +270,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Buaya sudah ada sejak zaman dinosaurus!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/crocodile.png',
         audioUrl: undefined,
-        difficulty: 'hard',
         order: 13,
       },
       {
@@ -297,7 +279,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Beberapa kura-kura bisa hidup lebih dari 100 tahun!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/turtle.png',
         audioUrl: undefined,
-        difficulty: 'easy',
         order: 14,
       },
       {
@@ -307,7 +288,6 @@ export class ContentService implements OnModuleInit {
         funFact: 'Monyet bisa mengenali wajahnya di cermin!',
         imageUrl: 'https://oyens-cilik-api.vercel.app/api/content/animals/image/monkey.png',
         audioUrl: undefined,
-        difficulty: 'easy',
         order: 15,
       },
     ];

@@ -27,9 +27,6 @@ export class Animal {
   @Column({ nullable: true })
   audioUrl: string;
 
-  @Column({ length: 20, default: 'easy' })
-  difficulty: string;
-
   @Column()
   order: number;
 }

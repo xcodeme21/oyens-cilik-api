@@ -84,12 +84,8 @@ export class ContentController {
 
   @Get('animals')
   @ApiOperation({ summary: 'Get all animals' })
-  @ApiQuery({ name: 'difficulty', required: false, enum: ['easy', 'medium', 'hard'] })
   @ApiResponse({ status: 200, description: 'List of all animals' })
-  async getAllAnimals(@Query('difficulty') difficulty?: string) {
-    if (difficulty) {
-      return this.contentService.getAnimalsByDifficulty(difficulty);
-    }
+  async getAllAnimals() {
     return this.contentService.getAllAnimals();
   }
 

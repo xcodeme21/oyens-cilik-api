@@ -1,12 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
 import { ContentModule } from './modules/content/content.module';
-import { ProgressModule } from './modules/progress/progress.module';
-import { ProfileModule } from './modules/profile/profile.module';
-import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -37,13 +32,7 @@ import { AdminModule } from './modules/admin/admin.module';
     }),
 
     // Feature modules
-    AuthModule,
-    UsersModule,
     ContentModule,
-    ProgressModule,
-    ProfileModule,
-    AdminModule,
   ],
 })
 export class AppModule {}
-
